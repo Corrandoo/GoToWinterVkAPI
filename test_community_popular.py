@@ -23,6 +23,11 @@ service_list = list(popular_subs.items())
 service_list.sort(key=lambda item: item[1])
 service_list.reverse()
 for item in service_list:
-    print("id: " + str(item[0]) + " friends: " + str(item[1]))
+    result_finaluser = requests.get("https://api.vk.com/method/users.get?user_ids=" + str(item[0]) + "&v=5.60")
+    json_result_finaluser = json.loads(result_finaluser.text)
+    firstname = json_result_finaluser["response"][0]["first_name"]
+    lastname = json_result_finaluser["response"][0]["last_name"]
+
+    print(firstname + " " + lastname + ": " + str(item[1]) + " друзей в сообществе.")
 
 
