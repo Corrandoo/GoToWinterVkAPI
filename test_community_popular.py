@@ -6,8 +6,6 @@ json_result = json.loads(result.text)
 json_result2 = json.loads(result2.text)
 subscribers = json_result["response"]["items"] + json_result2["response"]["items"]
 popular_subs = {} # ключ - Id пользователя, значение - количество друзей в сообществе
-list_of_ids = []
-list_of_numfriends = []
 
 for i in subscribers:
     popular_subs[i] = 0
@@ -20,5 +18,11 @@ for i in subscribers:
                 popular_subs[i] += 1
     except:
         popular_subs[i] = -1
-for i in subscribers:
-    print("id: " + str(i) + " friends: " + str(popular_subs.get(i)))
+
+service_list = list(popular_subs.items())
+service_list.sort(key=lambda item: item[1])
+service_list.reverse()
+for item in service_list:
+    print("id: " + str(item[0]) + " friends: " + str(item[1]))
+
+
